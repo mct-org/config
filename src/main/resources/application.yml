@@ -1,0 +1,26 @@
+server:
+  port: ${service_port:9001}
+spring:
+  application: 
+    name: config
+
+# Actuator endpoints
+management.endpoints.web.exposure.include: health, metrics, bus-refresh
+            
+---
+spring:
+  cloud:
+    config:
+      server:        
+        git:
+          uri: https://${git_host:github.com}:${git_port:443}/${git_org:mct-org}/${git_repo:configmng.git}
+          username: ${git_id:suslmk-lee}
+          password: ${git_pw:Woo30cls!}                            
+          search-paths: /*                       #base directory to search profiles
+          default-label: ${git_branch:main}      #git branch
+          
+  rabbitmq:
+    host: ${mq_host:52.79.55.61}
+    port: ${mq_port:30960}
+    username: ${mq_id:guest}
+    password: ${mq_pw:guest}
